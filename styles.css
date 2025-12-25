@@ -266,10 +266,11 @@ a:hover {
     bottom: 100%;
 }
 
-.transient-object:hover .tooltip-card {
+.transient-object:hover .tooltip-card,
+.transient-object.active .tooltip-card {
     visibility: visible;
     opacity: 1;
-    /* Appear instantly on hover */
+    /* Appear instantly on hover/click */
     transition: opacity 0.2s 0s, visibility 0s 0s;
 }
 
@@ -841,6 +842,11 @@ a:hover {
 @media (max-width: 768px) {
     .hero-content h1 {
         font-size: 2rem;
+    }
+
+    .hero-content .subtitle {
+        text-align: center;
+        font-size: 1rem;
     }
 
     .about-grid {

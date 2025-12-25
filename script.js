@@ -182,8 +182,18 @@ document.addEventListener('DOMContentLoaded', () => {
             tooltip.style.display = 'none';
         };
 
+
         transient.appendChild(tooltip);
         pulsarContainer.appendChild(transient);
+
+        // Click handler for mobile/desktop interaction
+        transient.addEventListener('click', (e) => {
+            // Close other active transients
+            document.querySelectorAll('.transient-object.active').forEach(el => {
+                if (el !== transient) el.classList.remove('active');
+            });
+            transient.classList.toggle('active');
+        });
 
         // Remove after 12 seconds
         setTimeout(() => {
