@@ -62,22 +62,33 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function spawnTransient() {
+        // Container (Hit Box)
         const transient = document.createElement('div');
         transient.classList.add('transient-object');
 
-        // Random position (covers almost full screen)
-        const top = Math.random() * 96 + 2;
-        const left = Math.random() * 96 + 2;
+        // Visual Element (The actual dot/effect)
+        const visual = document.createElement('div');
+        visual.classList.add('transient-visual');
 
-        transient.style.top = `${top}%`;
-        transient.style.left = `${left}%`;
+        // Random position (covers almost full screen)
+        // Random position (covers full document height)
+        const scrollHeight = document.documentElement.scrollHeight;
+        const scrollWidth = document.documentElement.scrollWidth;
+
+        // Ensure we don't spawn exactly on edge
+        const top = Math.random() * (scrollHeight - 100) + 50;
+        const left = Math.random() * (scrollWidth - 100) + 50;
+
+        transient.style.top = `${top}px`;
+        transient.style.left = `${left}px`;
 
         // Create Tooltip Card
         const tooltip = document.createElement('div');
         tooltip.classList.add('tooltip-card');
 
         // Smart Positioning: If too close to top (< 35%) (covers header), show below
-        if (top < 35) {
+        // Smart Positioning: If too close to top (< 300px) (covers header), show below
+        if (top < 300) {
             tooltip.classList.add('below');
         }
 
@@ -92,7 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Split into 5 distinct types (20% each)
         if (typeRoll < 0.20) {
             // PULSAR
-            transient.classList.add('type-pulsar');
+            visual.classList.add('type-pulsar');
             typeLabel = 'Pulsar';
             typeClass = 'ledger-pulsar';
 
@@ -101,13 +112,13 @@ document.addEventListener('DOMContentLoaded', () => {
             const displayPeriod = period < 1 ? (period * 1000).toFixed(2) : period;
 
             // Sync animation speed
-            transient.style.animationDuration = `${period}s`;
+            visual.style.animationDuration = `${period}s`;
 
             infoText = `New Pulsar Detected!<br><br>Name: ${coords}<br>Period: ${displayPeriod} ${unit}`;
 
         } else if (typeRoll < 0.40) {
             // SUPERNOVA
-            transient.classList.add('type-supernova');
+            visual.classList.add('type-supernova');
             typeLabel = 'Supernova';
             typeClass = 'ledger-supernova';
 
@@ -119,20 +130,20 @@ document.addEventListener('DOMContentLoaded', () => {
             coords = snName;
 
             infoText = `New Supernova Detected!<br><br>Name: ${snName}`;
-            transient.style.animationDuration = '10s';
+            visual.style.animationDuration = '10s';
 
         } else if (typeRoll < 0.60) {
             // SCINTILLATOR
-            transient.classList.add('type-scintillator');
+            visual.classList.add('type-scintillator');
             typeLabel = 'Scintillator';
             typeClass = 'ledger-scintillator';
 
             infoText = `New Rapid Scintillator Detected!<br><br>Name: ${coords}`;
-            transient.style.animationDuration = `${(Math.random() * 0.5 + 0.1).toFixed(2)}s`;
+            visual.style.animationDuration = `${(Math.random() * 0.5 + 0.1).toFixed(2)}s`;
 
         } else if (typeRoll < 0.80) {
             // UNKNOWN
-            transient.classList.add('type-unknown');
+            visual.classList.add('type-unknown');
             typeLabel = 'Unknown';
             typeClass = 'ledger-unknown';
 
@@ -141,29 +152,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
         } else {
             // COSMIC RAY
-            transient.classList.add('type-cosmic-ray');
+            visual.classList.add('type-cosmic-ray');
             typeLabel = 'Cosmic Ray';
             typeClass = 'ledger-cosmic-ray';
 
             coords = "-";
 
             // Rotate randomly but ALWAYS SLANTED (avoid horizontal 0/180)
-            // Range: 20-70 (NE), 110-160 (SE), 200-250 (SW), 290-340 (NW)
-            // Base angle 20-70
             let angle = Math.floor(Math.random() * 50 + 20);
-
-            // Randomly flip quadrants
-            if (Math.random() > 0.5) angle += 90; // now 20-160 range mostly
+            if (Math.random() > 0.5) angle += 90;
             if (Math.random() > 0.5) angle += 180;
 
-            // Allow some randomness but keep away from 0/180/360
-            // Actually simpler: just generate 0-360 then check if horizontal-ish
-            // But let's stick to the generated ranges above which approximate 45deg diagonals
-
-            transient.style.setProperty('--rotation', `${angle}deg`);
+            visual.style.setProperty('--rotation', `${angle}deg`);
 
             infoText = `Cosmic Ray Detected!<br><br>High Energy Particle`;
-            transient.style.animationDuration = '4s';
+            visual.style.animationDuration = '4s';
         }
 
         // Build Tooltip HTML
@@ -182,7 +185,7 @@ document.addEventListener('DOMContentLoaded', () => {
             tooltip.style.display = 'none';
         };
 
-
+        transient.appendChild(visual);
         transient.appendChild(tooltip);
         pulsarContainer.appendChild(transient);
 

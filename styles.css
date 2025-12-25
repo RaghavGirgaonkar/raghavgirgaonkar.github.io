@@ -40,6 +40,9 @@ body {
     color: var(--text-primary);
     line-height: 1.6;
     overflow-x: hidden;
+    position: relative;
+    /* For absolute positioning of starts */
+    min-height: 100vh;
 }
 
 h1,
@@ -99,16 +102,51 @@ a:hover {
     pointer-events: auto;
 }
 
+/* Pulsar Container to span full document height */
+.pulsar-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Will match the height of body/html */
+    /* z-index removed to allow children to stack against global context */
+    /* Transients are interactive */
+    pointer-events: none;
+    /* Let clicks pass through empty space */
+}
+
+/* Children (transients) need pointer-events auto to be clickable */
+.pulsar-container .transient-object {
+    pointer-events: auto;
+}
+
 /* Transient Object Base */
+/* Transient Object Container (Hit Box) */
 .transient-object {
     position: absolute;
-    /* Absolute so it stays on the page, not the screen */
+    width: 40px;
+    height: 40px;
+    /* Transparent hit box */
+    background-color: transparent;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translate(-50%, -50%);
+    /* Center on the coordinate */
+}
+
+/* Common Visual Dot */
+.transient-visual {
     width: 6px;
     height: 6px;
     background-color: #fff;
     border-radius: 50%;
-    cursor: pointer;
-    z-index: 10;
+    pointer-events: none;
+    /* Visual doesn't capture clicks, container does */
 }
 
 /* Pulsar: Periodic Blinking */
@@ -122,13 +160,7 @@ a:hover {
     background-color: #ffaa80;
     /* Warmer tone */
     box-shadow: 0 0 15px #ff5500, 0 0 30px #ffaa80;
-    width: 0;
-    /* Start invisible */
-    height: 0;
     animation: supernova-flash 10s forwards;
-    /* Runs once */
-    pointer-events: auto;
-    /* Ensure clickable during life */
 }
 
 /* Scintillator: Chaotic Flickering */
@@ -148,14 +180,13 @@ a:hover {
 }
 
 /* Cosmic Ray: Bright Streak */
+/* Cosmic Ray: Bright Streak */
 .type-cosmic-ray {
-    /* Container stays un-rotated so tooltip is straight */
-    width: 0 !important;
-    height: 0 !important;
-    background: transparent !important;
+    background-color: transparent !important;
     box-shadow: none !important;
     animation: none !important;
-    /* Visuals moved to ::after */
+    position: relative;
+    /* Anchor for pseudo */
 }
 
 .type-cosmic-ray::after {
@@ -175,20 +206,35 @@ a:hover {
     animation: streak-fade 4s forwards;
 }
 
-.transient-object:hover {
+/* Hover/Active State: Expand VISUAL NOT CONTAINER */
+.transient-object:hover .transient-visual,
+.transient-object.active .transient-visual {
     width: 12px;
     height: 12px;
     background-color: #fff;
     opacity: 1 !important;
-    /* Force full visibility so tooltip isn't dim */
-    animation-play-state: paused;
-    /* Pause animation to read tooltip */
-    z-index: 20000;
-    /* Highest priority when interacting */
 }
 
-/* Pause pseudo animation too */
-.transient-object:hover::after {
+/* For Cosmic Ray, don't expand the visual dot, but let pseudo show */
+.transient-object:hover .type-cosmic-ray,
+.transient-object.active .type-cosmic-ray {
+    background-color: transparent !important;
+    /* width/height stay as base 6px or whatever, but invisible bg */
+}
+
+.transient-object:hover,
+.transient-object.active {
+    z-index: 20000;
+}
+
+/* Pause animations via visual */
+.transient-object:hover .transient-visual,
+.transient-object.active .transient-visual {
+    animation-play-state: paused;
+}
+
+.transient-object:hover .type-cosmic-ray::after,
+.transient-object.active .type-cosmic-ray::after {
     animation-play-state: paused;
 }
 
