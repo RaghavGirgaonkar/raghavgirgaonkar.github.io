@@ -1,57 +1,159 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Raghav Girgaonkar</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Source+Code+Pro:wght@400;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
-    <header>
-        <h1>Raghav Girgaonkar</h1>
-        <div class="contact-links">
-            <a href="mailto:raghav.girgaonkar@gmail.com"><i class="fas fa-envelope"></i></a>
-            <a href="https://github.com/RaghavGirgaonkar" target="_blank"><i class="fab fa-github"></i></a>
-            <a href="https://www.researchgate.net/profile/Raghav-Girgaonkar" target="_blank"><i class="fab fa-researchgate"></i></a>
-            <a href="https://www.linkedin.com/in/raghav-girgaonkar/" target="_blank"><i class="fab fa-linkedin"></i></a>
+    <div class="cosmic-background"></div>
+    <div class="pulsar-container"></div>
+
+    <!-- Transient Ledger -->
+    <div class="ledger-container">
+        <div class="ledger-header">
+            <h3>Transients Detected: <span id="total-count">0</span></h3>
         </div>
+        <div class="ledger-body">
+            <table id="ledger-table">
+                <thead>
+                    <tr>
+                        <th>Type</th>
+                        <th>Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Rows added via JS -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="hero-content">
+
+        <h1>Raghav Girgaonkar</h1>
+        <p class="subtitle">Doctoral Candidate in Physics | UWM</p>
+        <div class="contact-links">
+            <a href="mailto:raghav.girgaonkar@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+            <a href="https://github.com/RaghavGirgaonkar" target="_blank" title="GitHub"><i
+                    class="fab fa-github"></i></a>
+            <a href="https://www.researchgate.net/profile/Raghav-Girgaonkar" target="_blank" title="ResearchGate"><i
+                    class="fab fa-researchgate"></i></a>
+            <a href="https://www.linkedin.com/in/raghav-girgaonkar/" target="_blank" title="LinkedIn"><i
+                    class="fab fa-linkedin"></i></a>
+        </div>
+    </div>
     </header>
-    <nav>
+
+    <nav class="sticky-nav">
         <ul>
-            <li><a href="#about">About Me</a></li>
-            <li><a href="#research">My Research</a></li>
-            <li><a href="#resources">Miscellaneous</a></li>
-            <li><a href="assets/CV.pdf" target="_blank">CV</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#research">Research</a></li>
+            <li><a href="#resources">Misc</a></li>
+            <li><a href="assets/Girgaonkar_CV.pdf" target="_blank" class="cv-btn">CV <i class="fas fa-download"></i></a>
+            </li>
         </ul>
     </nav>
-    <main>
-        <section id="about">
-            <h2>About Me</h2>
-            <img src="images/raghav.jpeg" alt="Your Photo" class="profile-photo">
-            <p>Hello! I'm Raghav, a Doctoral Student in Department of Physics at the University of Wisconsin-Milwaukee. I completed my MS in Physics from the University of Texas Rio Grande Valley in May 2024 and my Bachelor of Technology in Engineering Physics from the Indian Institute of Technology Hyderabad in May 2021.</p>
+
+    <main class="main-container">
+        <section id="about" class="content-section fade-in">
+            <div class="about-grid">
+                <div class="about-text">
+                    <div class="pulsar-hint"><i class="fas fa-satellite-dish"></i> On this page you'll notice some
+                        objects appear, hover over them to see what they are and add them to your detected transient
+                        register. See if you can catch them all!</div>
+                    <h2>About Me</h2>
+                    <p>Hello! I'm <strong>Raghav</strong>, a Doctoral Student in the Department of Physics at the <a
+                            href="https://uwm.edu/" target="_blank">University of Wisconsin-Milwaukee</a>.</p>
+                    <p>I completed my MS in Physics from the University of Texas Rio Grande Valley in May 2024 and my
+                        Bachelor of Technology in Engineering Physics from the Indian Institute of Technology Hyderabad
+                        in May 2021.</p>
+                    <p>My current research is in time-domain astronomy and focuses on the detection and analysis of
+                        radio transients. Radio transients are objects that emit at radio wavelengths whose brightness
+                        changes over different time scales. These objects are of great interest to astronomers as they
+                        can provide insights into extreme environments of the universe and can help probe fundamental
+                        physics questions.</p>
+                </div>
+                <div class="about-image">
+                    <img src="images/raghav_2.png" alt="Raghav Girgaonkar" class="profile-photo">
+                </div>
+            </div>
         </section>
-        <section id="research">
+
+        <section id="research" class="content-section fade-in">
             <h2>My Research</h2>
-            <p>My current research is in Gravitational Wave Data analysis. Previously I have worked on projects in Search for Extraterrestrial Intelligence (SETI), radio astronomy and pulsars.</p>
-            <!-- <div class="research-images">
-                <img src="https://via.placeholder.com/300x200" alt="Research Diagram 1">
-                <img src="https://via.placeholder.com/300x200" alt="Research Diagram 2">
-            </div> -->
+            <p class="section-intro">Exploring the universe through cosmic fireworks.</p>
+            <p>Using radio telescopes around the world, we detect and analyze radio transients to understand the
+                universe. As you explore my webpage, you may notice some flickering objects appear in the background.
+                These are how radio transients such as <a href="https://en.wikipedia.org/wiki/Pulsar"
+                    target="_blank">pulsars</a>, <a href="https://en.wikipedia.org/wiki/Supernova"
+                    target="_blank">supernovae</a>, and <a href="https://en.wikipedia.org/wiki/Twinkling"
+                    target="_blank">rapid scintillators</a> appear to radio astronomers as they monitor the radio sky.
+                Hover
+                over them to see what they are and add them to your detected transient register.</p>
+
+            <p>Here's all what I have worked on so far:</p>
+
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-icon"><i class="fas fa-broadcast-tower"></i></div>
+                    <h3>Radio Transients</h3>
+                    <p>Current research exploring exotic radio phenomena.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon"><i class="fas fa-wave-square"></i></div>
+                    <h3>Gravitational Wave Data Analysis</h3>
+                    <p>Effectively detecting noise artifacts using Particle Swarm Optimization.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon"><i class="fas fa-satellite-dish"></i></div>
+                    <h3>SETI</h3>
+                    <p>Searching for signs of intelligent life beyond our Galaxy.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon"><i class="fas fa-star"></i></div>
+                    <h3>Pulsars</h3>
+                    <p>Exploring space weather and haphazard behavior of neutron stars.</p>
+                </div>
+            </div>
         </section>
-        <section id="resources">
+
+        <section id="resources" class="content-section fade-in">
             <h2>Miscellaneous</h2>
-            <p>I like to make music and dabble in some photography  :</p>
-            <ul>
-                <li><a href="https://www.youtube.com/watch?v=iOJbYuLwNcU&list=PLvM0-LHRME6jtOc47Hx8dpYo_aL9pw_Qt">My Music</a></li>
-                <li><a href="https://www.instagram.com/fuji_rpg/">My photography</a></li>
-                <!-- <li><a href="https://example.com">Resource 3</a></li> -->
-            </ul>
+            <p class="section-intro">Beyond physics, here's what keeps me busy.</p>
+
+            <div class="cards-grid">
+                <a href="https://www.youtube.com/watch?v=iOJbYuLwNcU&list=PLvM0-LHRME6jtOc47Hx8dpYo_aL9pw_Qt"
+                    target="_blank" class="card link-card">
+                    <div class="card-bg" style="background: linear-gradient(45deg, #ff000022, #00000000);"></div>
+                    <div class="card-icon"><i class="fas fa-music"></i></div>
+                    <h3>My Music</h3>
+                    <p>Check out my musical creations and covers.</p>
+                    <span class="card-arrow"><i class="fas fa-arrow-right"></i></span>
+                </a>
+                <a href="https://www.instagram.com/fuji_rpg/" target="_blank" class="card link-card">
+                    <div class="card-bg" style="background: linear-gradient(45deg, #833ab422, #00000000);"></div>
+                    <div class="card-icon"><i class="fas fa-camera"></i></div>
+                    <h3>Photography</h3>
+                    <p>Capturing moments and scenes that inspire me.</p>
+                    <span class="card-arrow"><i class="fas fa-arrow-right"></i></span>
+                </a>
+            </div>
         </section>
     </main>
+
     <footer>
-        <p>&copy; 2024 Raghav Girgaonkar</p>
+        <p>&copy; 2025 Raghav Girgaonkar</p>
     </footer>
+    <script src="script.js"></script>
 </body>
+
 </html>
