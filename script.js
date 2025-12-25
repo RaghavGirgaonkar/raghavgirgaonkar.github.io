@@ -5,6 +5,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let totalDetected = 0;
     let tableRowCount = 0;
+    const minimizeBtn = document.getElementById('minimize-ledger');
+    const ledgerContainer = document.querySelector('.ledger-container');
+
+    if (minimizeBtn && ledgerContainer) {
+        minimizeBtn.addEventListener('click', () => {
+            ledgerContainer.classList.toggle('minimized');
+            const icon = minimizeBtn.querySelector('i');
+            if (ledgerContainer.classList.contains('minimized')) {
+                icon.classList.remove('fa-minus');
+                icon.classList.add('fa-plus');
+            } else {
+                icon.classList.remove('fa-plus');
+                icon.classList.add('fa-minus');
+            }
+        });
+    }
 
     if (!pulsarContainer) return;
 
